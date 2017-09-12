@@ -44,6 +44,7 @@ Based on the official Docker images:
 8. [Changing passwords](#changing-passwords)
    * [How can I change all the passwords?](#how-can-i-change-all-the-passwords)
 9. [Changing field types](#changing-field-types)
+10. [Usefull operations](#usefull-operations)
 
 ## Requirements
 
@@ -305,3 +306,45 @@ In order to change the field type you need to:
   ```bash
   $ curl -XDELETE 'http://localhost:9200/source-index' -u elastic:changeme
   ```
+
+## Usefull operations
+* Check the disk usage: `curl -s 'localhost:9200/_cat/allocation?v`
+* Change the disk low/high watermarks:
+  ```
+  curl -XPUT 'localhost:9200/_cluster/settings' -d
+  '{
+      "transient": {  
+        "cluster.routing.allocation.disk.watermark.low": "90%"    
+      }
+  }'
+  ```
+  ```
+  curl -XPUT 'localhost:9200/_cluster/settings' -d
+  '{
+      "transient": {  
+        "cluster.routing.allocation.disk.watermark.high": "90%"    
+      }
+  }'
+  ```
+  If you want your configuration changes to persist upon cluster restart, replace `transient` with `persistent`
+  Percentage values refer to used disk space, while byte values refer to free disk space.
+
+* Showing `UNASSIGNED` shards: 
+  ```
+  curl 'localhost:9200/_cat/shards?h=index,shard,prirep,state,unassigned.reason' | grep 'UNASSIGNED'
+  ```
+  Columns: `index`, `shard id`, `shard type` (primary/replica), `state`, `reason for state`
+  Reasons explanations: https://www.elastic.co/guide/en/elasticsearch/reference/5.4/cat-shards.html
+* Showing the reason for `UNASSIGNED` shard:
+  ```
+  curl -s 'localhost:9200/_cluster/allocation/explain' -d '{"index":"index-name","shard":4,"primary":true}'
+  ```
+* Re-assigning one singe shard: 
+  ```
+  curl -XPOST 'localhost:9200/_cluster/reroute?retry_failed=true&pretty'
+  ```
+  If you have many shards, run this A LOT!
+
+  This PR should fix it: https://github.com/elastic/elasticsearch/pull/25888
+
+* Solving `UNASSIGNED` shards issues: https://www.datadoghq.com/blog/elasticsearch-unassigned-shards/#reason-5-low-disk-watermark
