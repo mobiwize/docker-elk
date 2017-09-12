@@ -330,15 +330,22 @@ In order to change the field type you need to:
   Percentage values refer to used disk space, while byte values refer to free disk space.
 
 * Showing `UNASSIGNED` shards: 
-  ```curl 'localhost:9200/_cat/shards?h=index,shard,prirep,state,unassigned.reason' | grep 'UNASSIGNED'```
+  ```
+  curl 'localhost:9200/_cat/shards?h=index,shard,prirep,state,unassigned.reason' | grep 'UNASSIGNED'
+  ```
   Columns: `index`, `shard id`, `shard type` (primary/replica), `state`, `reason for state`
   Reasons explanations: https://www.elastic.co/guide/en/elasticsearch/reference/5.4/cat-shards.html
 * Showing the reason for `UNASSIGNED` shard:
-  ```curl -s 'localhost:9200/_cluster/allocation/explain' -d '{"index":"index-name","shard":4,"primary":true}'```
-* Re-assigning one singe shard: ```curl -XPOST 'localhost:9200/_cluster/reroute?retry_failed=true&pretty'```
+  ```
+  curl -s 'localhost:9200/_cluster/allocation/explain' -d '{"index":"index-name","shard":4,"primary":true}'
+  ```
+* Re-assigning one singe shard: 
+  ```
+  curl -XPOST 'localhost:9200/_cluster/reroute?retry_failed=true&pretty'
+  ```
   If you have many shards, run this A LOT!
 
   This PR should fix it: https://github.com/elastic/elasticsearch/pull/25888
-  
+
   Some shards may still stay `UNASSIGNED` because: 
 * Solving `UNASSIGNED` shards issues: https://www.datadoghq.com/blog/elasticsearch-unassigned-shards/#reason-5-low-disk-watermark
