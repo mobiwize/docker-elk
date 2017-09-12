@@ -347,5 +347,4 @@ In order to change the field type you need to:
 
   This PR should fix it: https://github.com/elastic/elasticsearch/pull/25888
 
-  Some shards may still stay `UNASSIGNED` because: 
 * Solving `UNASSIGNED` shards issues: https://www.datadoghq.com/blog/elasticsearch-unassigned-shards/#reason-5-low-disk-watermark
