@@ -87,4 +87,7 @@ curl -XPUT -D- "http://localhost:9200/.kibana/config/5.5.0" \
     # Uncommend this when we buy XPACK
     # -u elastic:$ELASTIC_USER_PASSWORD
 
+# Set the index configurations:
+curl -XPUT 'http://localhost:9200/_settings' -d '{"number_of_replicas":"0"}'
+
 wait $ES_PID
