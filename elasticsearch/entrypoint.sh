@@ -90,4 +90,7 @@ curl -XPUT -D- "http://localhost:9200/.kibana/config/5.5.0" \
 # Set the index configurations:
 curl -XPUT 'http://localhost:9200/_settings' -d '{"number_of_replicas":"0"}'
 
+chmod +x /set_default_shards.sh
+/set_default_shards.sh
+
 wait $ES_PID
