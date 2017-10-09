@@ -308,7 +308,10 @@ In order to change the field type you need to:
   ```
 
 ## Usefull operations
-* Check the disk usage: `curl -s 'localhost:9200/_cat/allocation?v`
+* Check the disk usage: 
+  ```
+  curl -s 'localhost:9200/_cat/allocation?v'
+  ```
 * Change the disk low/high watermarks:
   ```
   curl -XPUT 'localhost:9200/_cluster/settings' -d
@@ -348,3 +351,26 @@ In order to change the field type you need to:
   This PR should fix it: https://github.com/elastic/elasticsearch/pull/25888
 
 * Solving `UNASSIGNED` shards issues: https://www.datadoghq.com/blog/elasticsearch-unassigned-shards/#reason-5-low-disk-watermark
+* Get the elasticsearch nodes details: 
+  ```
+  curl `localhost:9200/_nodes`
+  ```
+* Get the elasticsearch cluster details (including the cluster.name):
+  ```
+  curl 'localhost:9200/_cluster/health'
+  ```
+  Status explained:
+  * `green`: All primary and replica shards are active.
+  * `yellow`: All primary shards are active, but not all replica shards are active.
+  * `red`: Not all primary shards are active
+
+  (Source: https://www.elastic.co/guide/en/elasticsearch/guide/current/cluster-health.html)
+
+* Change the default number of shards for new indices:
+  http://spuder.github.io/2015/elasticsearch-default-shards/
+
+* Update default number of shards:
+  http://spuder.github.io/2015/elasticsearch-default-shards/
+  
+* Shrink existing index (number of shards):
+  https://www.elastic.co/guide/en/elasticsearch/reference/5.4/indices-shrink-index.html
