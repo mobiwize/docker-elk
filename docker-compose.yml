@@ -13,6 +13,7 @@ services:
       LOGSTASH_SYSTEM_USER_PASSWORD:
       ELASTIC_USER_PASSWORD:
       ELASTIC_INDEX_PREFIX:
+      DEFAULT_NUMBER_OF_SHARDS:
     networks:
       - elk
 
