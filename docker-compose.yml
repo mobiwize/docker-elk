@@ -14,6 +14,7 @@ services:
       ELASTIC_USER_PASSWORD:
       ELASTIC_INDEX_PREFIX:
       DEFAULT_NUMBER_OF_SHARDS:
+      DEFAULT_NUMBER_OF_REPLICAS:
     networks:
       - elk
 
