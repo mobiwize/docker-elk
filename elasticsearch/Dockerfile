@@ -5,7 +5,7 @@ FROM docker.elastic.co/elasticsearch/elasticsearch:5.5.0
 # Example: RUN elasticsearch-plugin install analysis-icu
 
 COPY ./entrypoint.sh /
-COPY ./set_default_shards.sh /
+COPY ./set_default_shards_and_replicas.sh /
 
 USER root
 ENTRYPOINT ["/entrypoint.sh"]

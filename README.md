@@ -369,8 +369,5 @@ In order to change the field type you need to:
 * Change the default number of shards for new indices:
   http://spuder.github.io/2015/elasticsearch-default-shards/
 
-* Update default number of shards:
-  http://spuder.github.io/2015/elasticsearch-default-shards/
-  
 * Shrink existing index (number of shards):
   https://www.elastic.co/guide/en/elasticsearch/reference/5.4/indices-shrink-index.html
