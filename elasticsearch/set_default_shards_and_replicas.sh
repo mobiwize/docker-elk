@@ -10,7 +10,13 @@ if [[ -z "${DEFAULT_NUMBER_OF_REPLICAS// }" ]]; then
   exit 1
 fi
 
-echo "Setting the default number of shards to be $DEFAULT_NUMBER_OF_SHARDS and default number of replicas to be $DEFAULT_NUMBER_OF_REPLICAS"
+if [[ -z "${ELASTIC_INDEX_PREFIX// }" ]]; then
+  echo "ERROR: ELASTIC_INDEX_PREFIX is not defined"
+  exit 1
+fi
+
+echo "Setting the default number of shards to be [$DEFAULT_NUMBER_OF_SHARDS] and default number of replicas to be [$DEFAULT_NUMBER_OF_REPLICAS]"
+echo "Also changing the template to be [$ELASTIC_INDEX_PREFIX-*]"
 
 res="{}"
 while [ $res == "{}" ]; do
@@ -35,6 +41,7 @@ else
   sed -i "s/\"number_of_replicas\" \: \"[0-9][0-9]*\"/\"number_of_replicas\" \: \"$DEFAULT_NUMBER_OF_REPLICAS\"/g" template.new.json
 fi
 
+sed -i "s/\"template\" \: \"[a-z]*-/\"template\" \: \"$ELASTIC_INDEX_PREFIX-/g" template.new.json
 
 curl -XPUT 'http://localhost:9200/_template/logstash' -d @template.new.json --header "Content-Type: application/json"
 
