@@ -4,6 +4,7 @@ services:
 
   elasticsearch:
     image: "${COMPOSE_REGISTRY}/elasticsearch:${COMPOSE_TAG}"
+    build: elasticsearch/
     restart: unless-stopped
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
@@ -20,6 +21,7 @@ services:
 
   logstash:
     image: "${COMPOSE_REGISTRY}/logstash:${COMPOSE_TAG}"
+    build: logstash/
     restart: unless-stopped
     volumes:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
@@ -38,6 +40,7 @@ services:
 
   kibana:
     image: "${COMPOSE_REGISTRY}/kibana:${COMPOSE_TAG}"
+    build: kibana/
     restart: unless-stopped
     volumes:
       - ./kibana/config/:/usr/share/kibana/config
