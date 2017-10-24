@@ -3,7 +3,6 @@ version: '2'
 services:
 
   elasticsearch:
-    build: elasticsearch/
     environment: 
       ES_JAVA_OPTS: "-Xmx2g -Xms2g" 
     volumes:
@@ -12,15 +11,11 @@ services:
       - "9200:9200"
 
   logstash:
-    build: logstash/
     networks:
       - localdev
     environment: 
       ES_JAVA_OPTS: "-Xmx500m -Xms500m" 
   
-  kibana:
-    build: kibana/
-
 networks:
   localdev:
     external: true
