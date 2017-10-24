@@ -8,7 +8,7 @@ services:
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     environment:
-      ES_JAVA_OPTS: "-Xmx8g -Xms8g"
+      ES_JAVA_OPTS: "-Xmx30g -Xms30g"
       KIBANA_USER_PASSWORD:
       LOGSTASH_SYSTEM_USER_PASSWORD:
       ELASTIC_USER_PASSWORD:
