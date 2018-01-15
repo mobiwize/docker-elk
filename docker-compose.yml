@@ -16,6 +16,10 @@ services:
       ELASTIC_INDEX_PREFIX:
       DEFAULT_NUMBER_OF_SHARDS:
       DEFAULT_NUMBER_OF_REPLICAS:
+    logging:
+      driver: json-file
+      options:
+        max-size: 1g
     networks:
       - elk
 
@@ -33,6 +37,10 @@ services:
       LS_JAVA_OPTS: "-Xmx2g -Xms2g"
       ELASTIC_USER_PASSWORD:
       ELASTIC_INDEX_PREFIX:
+    logging:
+      driver: json-file
+      options:
+        max-size: 1g
     networks:
       - elk
     depends_on:
@@ -48,6 +56,10 @@ services:
       - "5601:5601"
     environment:
       ELASTICSEARCH_PASSWORD: "${KIBANA_USER_PASSWORD}"
+    logging:
+      driver: json-file
+      options:
+        max-size: 1g
     networks:
       - elk
     depends_on:
