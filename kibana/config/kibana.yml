@@ -5,7 +5,7 @@
 server.name: kibana
 server.host: "0"
 elasticsearch.url: http://elasticsearch:9200
-elasticsearch.requestTimeout: 60000
+elasticsearch.requestTimeout: 300000
 
 ## Delete this when we buy XPACK
 ## Disable X-Pack 
