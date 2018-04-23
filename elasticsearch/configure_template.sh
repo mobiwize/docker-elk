@@ -41,6 +41,9 @@ else
   sed -i "s/\"number_of_replicas\" \: \"[0-9][0-9]*\"/\"number_of_replicas\" \: \"$DEFAULT_NUMBER_OF_REPLICAS\"/g" template.new.json
 fi
 
+echo "Adding geo_point field named location"
+sed -i "s/\"@timestamp\"/\n\"location\" \: {\"include_in_all\" \: false,\"type\" \: \"geo_point\"},\n\"@timestamp\"/g" template.new.json
+
 sed -i "s/\"template\" \: \"[a-z]*-/\"template\" \: \"$ELASTIC_INDEX_PREFIX-/g" template.new.json
 
 curl -XPUT 'http://localhost:9200/_template/logstash' -d @template.new.json --header "Content-Type: application/json"
