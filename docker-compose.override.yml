@@ -7,8 +7,6 @@ services:
       ES_JAVA_OPTS: "-Xmx2g -Xms2g" 
     volumes:
       - ./elasticsearch-data:/usr/share/elasticsearch/data
-    ports:
-      - "9200:9200"
 
   logstash:
     networks:
