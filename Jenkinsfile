@@ -1,5 +1,5 @@
 #!groovy
-@Library("jenkins-libs@master")
+@Library("jenkins-libs@v1.0")
 import main.groovy.docker.Compose
 
 node {
